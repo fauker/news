@@ -7,7 +7,7 @@ CREATE TABLE news_user
 	username varchar(255) NOT NULL,
 	password varchar(100) NOT NULL,
 	role varchar(15) NOT NULL,
-	CONSTRAINT user_pkey PRIMERY KEY (id)
+	CONSTRAINT user_pkey PRIMARY KEY (id)
 );
 
 
@@ -20,11 +20,11 @@ CREATE TABLE news
 	title varchar(255) NOT NULL,
 	description varchar(255) NOT NULL,
 	user_id bigint,
-	CONSTRAINT news_pkey PRIMARY KEY(id),
+	CONSTRAINT news_pkey PRIMARY KEY (id),
 	CONSTRAINT news_user_fk FOREIGN KEY (user_id) REFERENCES news_user (id)
 );
 
-DROP TABLE IF EXISTS comment
+DROP TABLE IF EXISTS comment;
 CREATE TABLE comment 
 (
 	id bigint NOT NULL,
@@ -37,4 +37,4 @@ CREATE TABLE comment
 );
 
 INSERT INTO news_user (id, datecreated, dateupdated, username, password, role) VALUES
-(1, '24-02-2015', null, 'admin', '123456', 'ROLE_USER');
+(1, '2015-02-24', null, 'admin', '123456', 'ROLE_USER');

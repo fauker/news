@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+ 
+    <!-- Tags properties e placeholderConfig utilizadas para ler as propriedades do arquivo de banco de dados. 
+         Com isso podemos utilizar as chaves do arquivo properties como ${key} -->
+    <util:properties id="defaultProperties" local-override="false" location="classpath:news_db.properties" />
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="localOverride" value="true" />
+        <property name="propertiesArray">
+            <list>
+                <ref bean="defaultProperties" />
+            </list>
+        </property>
+    </bean>
+
+    <security:http auto-config="true" access-denied-page="/access-denied.jsp" >
+        <security:form-login login-page="/pages/login/" default-target-url="/pages/home/" authentication-failure-url="/pages/login/"/>
+        
+        <!-- Recursos e Paginas Publicas -->
+        <security:intercept-url pattern="/resources/**"                         access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/login.jsp*"                           access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <security:intercept-url pattern="/pages/login/**"                       access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        
+        <!-- Restricoes de perfils por pagina -->
+        <!-- NOTHING! -->
+        
+        <!-- Caso nao caia por pagina, bloqueia qualquer outro acesso. -->
+        <security:intercept-url pattern="/**" 					access="ROLE_USER" />
+    </security:http>
+ 
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:jdbc-user-service data-source-ref="dataSource"
+                                        users-by-username-query="SELECT username, password FROM news_user WHERE username=?"
+                                        authorities-by-username-query="SELECT u.username, u.role FROM news_user u WHERE u.username=?"
+            />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <property name="url" value="${hibernate.connection.url}" />
+        <property name="driverClassName" value="${hibernate.connection.driver_class}" />
+        <property name="username" value="${hibernate.connection.username}" />
+        <property name="password" value="${hibernate.connection.password}" />
+    </bean>
+
+</beans>

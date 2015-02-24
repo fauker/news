@@ -40,15 +40,13 @@ public class NewsController {
 	
 	public String save(@Valid News news, BindingResult result, Model model) {
 		
-		if (result.hasErrors()) {
-			// TODO
-		}
-		
-		try {
-			news.save();
-			model.addAttribute("msgSuccess", "form.save.success");
-		} catch (Exception e) {
-			model.addAttribute("msgError", e.getMessage());
+		if (!result.hasErrors()) {
+			try {
+				news.save();
+				model.addAttribute("msgSuccess", "form.save.success");
+			} catch (Exception e) {
+				model.addAttribute("msgError", e.getMessage());
+			}
 		}
 		
 		return this.show(model);

@@ -5,6 +5,7 @@ News
 Arquitetura
 ===========
 
++ ActiveRecord 
 + Spring MVC 3 com URL's amigáveis
 + ORM JPA/Hibernate
 + Migrations (com FlyWay)

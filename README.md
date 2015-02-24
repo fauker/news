@@ -5,7 +5,7 @@ News
 Arquitetura
 ===========
 
-+ Spring MVC 3 e URL's amigáveis
++ Spring MVC 3 com URL's amigáveis
 + ORM JPA/Hibernate
 + Migrations (com FlyWay)
 + Bean Validation

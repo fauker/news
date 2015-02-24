@@ -1,6 +1,6 @@
 News
 ======
-É um aplicação para postar notícias com a possibilidade de comentários.
+É um aplicação para postagens de notícias com a possibilidade de comentários.
 
 Arquitetura
 ===========

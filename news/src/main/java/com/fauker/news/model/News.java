@@ -66,6 +66,5 @@ public class News extends Repository {
 	public void setAuthor(User author) {
 		this.author = author;
 	}
-	
 
 }

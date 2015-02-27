@@ -16,8 +16,8 @@ Arquitetura
 
 Créditos
 ==========
-João Paulo Sossoloti
-+ https://github.com/jopss
+João Paulo Sosoloti
+https://github.com/jopss
 
 Status
 ======

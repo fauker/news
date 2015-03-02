@@ -3,9 +3,11 @@ package com.fauker.news.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -13,11 +15,13 @@ import com.fauker.news.util.Paginator;
 import com.fauker.news.util.Repository;
 
 @Entity
+@Table(name = "news")
 public class News extends Repository {
 
 	private static final long serialVersionUID = 8124220365098903377L;
 	
 	@Id
+	@GeneratedValue
 	private Long id;
 	
 	@NotEmpty
@@ -26,13 +30,15 @@ public class News extends Repository {
 	@NotEmpty
 	private String description;
 	
-	@NotNull
-	@ManyToOne
-	private User author;
+	private String author;
 	
 	@SuppressWarnings("unchecked")
 	public static List<News> findAll(Paginator paginator) {
 		return findAllWithPaginator(News.class, paginator, "datecreated");
+	}
+	
+	public static News findById(Long id) {
+		return findById(News.class, id);
 	}
 	
 	public Long getId() {
@@ -59,11 +65,11 @@ public class News extends Repository {
 		this.description = description;
 	}
 
-	public User getAuthor() {
+	public String getAuthor() {
 		return author;
 	}
-
-	public void setAuthor(User author) {
+	
+	public void setAuthor(String author) {
 		this.author = author;
 	}
 	

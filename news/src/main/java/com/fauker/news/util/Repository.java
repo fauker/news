@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityListeners;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +23,8 @@ import com.fauker.news.exception.NewsException;
  *
  */
 
+@MappedSuperclass
+@EntityListeners(value = AuditListener.class)
 public abstract class Repository implements Serializable {
 
 	private static final long serialVersionUID = 5393429784443693492L;

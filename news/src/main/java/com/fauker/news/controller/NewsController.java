@@ -3,6 +3,7 @@ package com.fauker.news.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,11 +38,14 @@ public class NewsController {
 		return "news";
 		
 	}
-	
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@Valid News news, BindingResult result, Model model) {
 		
 		if (!result.hasErrors()) {
 			try {
+				String author = SecurityContextHolder.getContext().getAuthentication().getName();
+				news.setAuthor(author);
 				news.save();
 				model.addAttribute("msgSuccess", "form.save.success");
 			} catch (Exception e) {

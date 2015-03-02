@@ -40,7 +40,7 @@
     <security:authentication-manager>
         <security:authentication-provider>
             <security:jdbc-user-service data-source-ref="dataSource"
-                                        users-by-username-query="SELECT username, password FROM news_user WHERE username=?"
+                                        users-by-username-query="SELECT username, password, enable FROM news_user WHERE username=?"
                                         authorities-by-username-query="SELECT u.username, u.role FROM news_user u WHERE u.username=?"
             />
         </security:authentication-provider>

@@ -17,7 +17,7 @@ import com.fauker.news.util.Repository;
 @Entity
 @Table(name = "news")
 public class News extends Repository {
-
+//teste
 	private static final long serialVersionUID = 8124220365098903377L;
 	
 	@Id
